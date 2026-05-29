@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>After Porto — Acesso Antecipado</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --navy:          #0D1B2A;
+      --navy-2:        #0a1520;
+      --navy-card:     rgba(13, 27, 42, 0.75);
+      --gold:          #E8B86D;
+      --gold-dim:      rgba(232, 184, 109, 0.12);
+      --gold-glow:     rgba(232, 184, 109, 0.18);
+      --teal:          #1FCFB4;
+      --teal-dim:      rgba(31, 207, 180, 0.10);
+      --teal-glow:     rgba(31, 207, 180, 0.18);
+      --coral:         #FF6B47;
+      --text:          #F0EDE6;
+      --text-muted:    #8A9BB0;
+      --border:        rgba(255, 255, 255, 0.07);
+      --border-hover:  rgba(255, 255, 255, 0.14);
+
+      --r-sm:  8px;
+      --r-md:  12px;
+      --r-lg:  16px;
+      --r-pill:100px;
+
+      --shadow-card:
+        0 0 0 1px rgba(255,255,255,0.06),
+        0 4px 6px rgba(0,0,0,0.2),
+        0 20px 40px rgba(0,0,0,0.35);
+      --shadow-btn:
+        0 2px 8px rgba(232,184,109,0.3),
+        0 1px 0 rgba(255,255,255,0.15) inset;
+      --shadow-input-focus:
+        0 0 0 2px rgba(31,207,180,0.35);
+      --blur-glass:    blur(14px);
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    body {
+      background-color: var(--navy-2);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    /* ─── BACKGROUND GLOW ────────────────────────────────────── */
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -5%,
+          rgba(31,207,180,0.10) 0%,
+          rgba(232,184,109,0.07) 45%,
+          transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 80%,
+          rgba(232,184,109,0.05) 0%,
+          transparent 60%);
+    }
+
+    /* grain overlay */
+    .bg-glow::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.35;
+    }
+
+    /* ─── LAYOUT ─────────────────────────────────────────────── */
+    main {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      padding: 48px 20px 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    /* ─── BADGE ──────────────────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: var(--r-pill);
+      background: var(--teal-dim);
+      border: 1px solid rgba(31,207,180,0.25);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--teal);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    /* ─── HERO ───────────────────────────────────────────────── */
+    .hero {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(32px, 8vw, 48px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--gold) 20%, #f5d08a 60%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-roma {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(17px, 4.5vw, 22px);
+      font-weight: 700;
+      color: var(--text-muted);
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+
+    /* ─── CARD FORM ──────────────────────────────────────────── */
+    .card {
+      width: 100%;
+      background: var(--navy-card);
+      backdrop-filter: var(--blur-glass);
+      -webkit-backdrop-filter: var(--blur-glass);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 28px 24px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ─── FORM FIELDS ────────────────────────────────────────── */
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+    }
+
+    input {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 13px 16px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+      width: 100%;
+    }
+
+    input::placeholder { color: rgba(138,155,176,0.5); }
+
+    input:hover {
+      border-color: var(--border-hover);
+      background: rgba(255,255,255,0.06);
+    }
+
+    input:focus {
+      border-color: var(--teal);
+      background: rgba(31,207,180,0.04);
+      box-shadow: var(--shadow-input-focus);
+    }
+
+    input.error {
+      border-color: var(--coral);
+      box-shadow: 0 0 0 2px rgba(255,107,71,0.2);
+    }
+
+    .field-error {
+      font-size: 12px;
+      color: var(--coral);
+      display: none;
+    }
+
+    .field-error.visible { display: block; }
+
+    /* ─── CTA BUTTON ─────────────────────────────────────────── */
+    .btn-cta {
+      width: 100%;
+      padding: 15px 24px;
+      border-radius: var(--r-pill);
+      background: linear-gradient(135deg, var(--gold) 0%, #f0c87a 50%, var(--gold) 100%);
+      background-size: 200% 200%;
+      color: #0D1B2A;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      box-shadow: var(--shadow-btn);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background-position 0.4s ease;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-cta:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(232,184,109,0.45), 0 1px 0 rgba(255,255,255,0.2) inset;
+      background-position: right center;
+    }
+
+    .btn-cta:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: var(--shadow-btn);
+    }
+
+    .btn-cta:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-cta .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(13,27,42,0.3);
+      border-top-color: #0D1B2A;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    .btn-cta.loading .spinner { display: block; }
+    .btn-cta.loading .btn-text { opacity: 0.7; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── SOCIAL PROOF ───────────────────────────────────────── */
+    .social-proof {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatars {
+      display: flex;
+    }
+
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid var(--navy-2);
+      background: linear-gradient(135deg, var(--teal-dim), var(--gold-dim));
+      margin-left: -8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+
+    .avatar:first-child { margin-left: 0; }
+
+    .social-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .social-text strong {
+      color: var(--teal);
+      font-weight: 600;
+    }
+
+    /* ─── DIVIDER ────────────────────────────────────────────── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-hover), transparent);
+    }
+
+    /* ─── SUCCESS STATE ──────────────────────────────────────── */
+    .success-state {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 24px;
+      animation: fadeUp 0.5s ease forwards;
+    }
+
+    .success-state.visible { display: flex; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--teal-dim);
+      border: 1px solid rgba(31,207,180,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 0 32px rgba(31,207,180,0.2);
+    }
+
+    .success-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .success-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 320px;
+    }
+
+    /* ─── CUPOM ──────────────────────────────────────────────── */
+    .cupom-box {
+      width: 100%;
+      background: var(--navy-card);
+      backdrop-filter: var(--blur-glass);
+      -webkit-backdrop-filter: var(--blur-glass);
+      border: 1px solid rgba(232,184,109,0.25);
+      border-radius: var(--r-md);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-card), 0 0 40px rgba(232,184,109,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cupom-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .cupom-code {
+      font-family: 'Space Mono', monospace;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+    }
+
+    .cupom-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .cupom-desc strong { color: var(--text); }
+
+    .btn-copy {
+      align-self: flex-start;
+      padding: 7px 14px;
+      border-radius: var(--r-pill);
+      background: var(--gold-dim);
+      border: 1px solid rgba(232,184,109,0.2);
+      color: var(--gold);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-copy:hover {
+      background: rgba(232,184,109,0.18);
+      border-color: rgba(232,184,109,0.35);
+    }
+
+    .btn-copy.copied { color: var(--teal); background: var(--teal-dim); border-color: rgba(31,207,180,0.25); }
+
+    /* ─── DISCLAIMER ─────────────────────────────────────────── */
+    .disclaimer {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: var(--gold-dim);
+      border: 1px solid rgba(232,184,109,0.15);
+      border-radius: var(--r-sm);
+      padding: 12px 14px;
+    }
+
+    .disclaimer-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+    .disclaimer-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .disclaimer-text strong { color: var(--gold); }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 20px 40px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: rgba(138,155,176,0.4);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 380px) {
+      main { padding: 36px 16px 48px; gap: 24px; }
+      .card { padding: 22px 18px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <h1 class="hero-title"><span>AFTER PORTO</span></h1>
+      <p class="hero-roma">5 dias em Porto em 1 noite que não deixa esse sentimento acabar.</p>
+      <p class="hero-sub">
+        Inscreva-se agora e garanta <strong style="color:var(--text)">acesso antecipado</strong> + um cupom de desconto exclusivo quando as vendas abrirem.
+      </p>
+    </section>
+
+    <!-- FORM STATE -->
+    <div id="form-state" style="width:100%; display:flex; flex-direction:column; gap:20px;">
+
+      <div class="card">
+        <form id="signup-form" novalidate>
+
+          <div style="display:flex; flex-direction:column; gap:16px;">
+
+            <div class="field">
+              <label for="nome">Seu nome</label>
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                placeholder="Como você quer ser chamado?"
+                autocomplete="given-name"
+                inputmode="text"
+              />
+              <span class="field-error" id="nome-error">Coloca seu nome aqui.</span>
+            </div>
+
+            <div class="field">
+              <label for="telefone">WhatsApp</label>
+              <input
+                type="tel"
+                id="telefone"
+                name="telefone"
+                placeholder="(71) 9 0000-0000"
+                autocomplete="tel"
+                inputmode="tel"
+              />
+              <span class="field-error" id="tel-error">Número inválido. Coloca o DDD + número.</span>
+            </div>
+
+          </div>
+
+          <div style="margin-top:20px;">
+            <button type="submit" class="btn-cta" id="btn-submit">
+              <div class="spinner"></div>
+              <span class="btn-text">Quero meu acesso antecipado →</span>
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- SOCIAL PROOF -->
+      <div class="social-proof">
+        <div class="avatars">
+          <div class="avatar">🏖</div>
+          <div class="avatar">🌴</div>
+          <div class="avatar">✈️</div>
+        </div>
+        <p class="social-text">
+          Quem foi pra Porto junto vai estar lá.<br />
+          <strong>450 vagas</strong>
+        </p>
+      </div>
+
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="success-state" id="success-state">
+
+      <div class="success-icon">🌴</div>
+
+      <div>
+        <h2 class="success-title" id="success-title">Você está dentro.</h2>
+        <p class="success-sub" style="margin-top:10px;">
+          Vamos te avisar no WhatsApp quando as vendas abrirem. Guarda esse cupom — ele é seu.
+        </p>
+      </div>
+
+      <div class="cupom-box">
+        <span class="cupom-label">Seu cupom exclusivo</span>
+        <span class="cupom-code" id="cupom-code">—</span>
+        <p class="cupom-desc">
+          Desconto garantido no <strong>Lote 1</strong> do After Porto.<br />
+          Apresenta no momento da compra.
+        </p>
+        <button class="btn-copy" id="btn-copy" onclick="copiarCupom()">
+          Copiar código
+        </button>
+      </div>
+
+      <div class="disclaimer">
+        <span class="disclaimer-icon">💬</span>
+        <p class="disclaimer-text">
+          Você receberá um <strong>aviso no WhatsApp</strong> assim que os ingressos abrirem. Fique de olho.
+        </p>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer>After Porto</footer>
+
+  <script>
+    /* ─── CONFIG SUPABASE ──────────────────────────────────────── */
+    const SUPA_URL = 'https://tvndpawdvcnvgyctvsgz.supabase.co';
+    const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR2bmRwYXdkdmNudmd5Y3R2c2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNzAzOTksImV4cCI6MjA5NTY0NjM5OX0.lyZHamZxp3o0DRq8U8EBXRS-_3dqKNjv4_niiiV0h1M';
+
+    /* ─── GERADOR DE CUPOM ─────────────────────────────────────── */
+    function gerarCupom() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      let code = 'PORTO';
+      for (let i = 0; i < 4; i++) {
+        code += chars[Math.floor(Math.random() * chars.length)];
+      }
+      return code;
+    }
+
+    /* ─── MÁSCARA DE TELEFONE ──────────────────────────────────── */
+    const telInput = document.getElementById('telefone');
+    telInput.addEventListener('input', () => {
+      let v = telInput.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length > 10) {
+        v = v.replace(/^(\d{2})(\d{1})(\d{4})(\d{4})$/, '($1) $2 $3-$4');
+      } else if (v.length > 6) {
+        v = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
+      } else if (v.length > 2) {
+        v = v.replace(/^(\d{2})(\d{0,5})$/, '($1) $2');
+      } else {
+        v = v.replace(/^(\d{0,2})$/, '($1');
+      }
+      telInput.value = v;
+    });
+
+    /* ─── VALIDAÇÃO ────────────────────────────────────────────── */
+    function validar() {
+      let ok = true;
+
+      const nome = document.getElementById('nome');
+      const nomeErr = document.getElementById('nome-error');
+      if (nome.value.trim().length < 2) {
+        nome.classList.add('error');
+        nomeErr.classList.add('visible');
+        ok = false;
+      } else {
+        nome.classList.remove('error');
+        nomeErr.classList.remove('visible');
+      }
+
+      const tel = document.getElementById('telefone');
+      const telErr = document.getElementById('tel-error');
+      const digits = tel.value.replace(/\D/g, '');
+      if (digits.length < 10) {
+        tel.classList.add('error');
+        telErr.classList.add('visible');
+        ok = false;
+      } else {
+        tel.classList.remove('error');
+        telErr.classList.remove('visible');
+      }
+
+      return ok;
+    }
+
+    /* ─── SUBMIT ───────────────────────────────────────────────── */
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validar()) return;
+
+      const btn = document.getElementById('btn-submit');
+      btn.disabled = true;
+      btn.classList.add('loading');
+
+      const nome     = document.getElementById('nome').value.trim();
+      const telefone = document.getElementById('telefone').value.trim();
+      const cupom    = gerarCupom();
+
+      try {
+        const res = await fetch(`${SUPA_URL}/rest/v1/inscricoes`, {
+          method: 'POST',
+          headers: {
+            'Content-Type':  'application/json',
+            'apikey':        SUPA_KEY,
+            'Authorization': `Bearer ${SUPA_KEY}`,
+            'Prefer':        'return=minimal',
+          },
+          body: JSON.stringify({ nome, telefone, cupom }),
+        });
+
+        if (!res.ok) throw new Error('Erro ao salvar');
+
+        mostrarSucesso(nome, cupom);
+
+      } catch (err) {
+        btn.disabled = false;
+        btn.classList.remove('loading');
+        alert('Algo deu errado. Tenta de novo em instantes.');
+      }
+    });
+
+    /* ─── MOSTRAR SUCESSO ──────────────────────────────────────── */
+    function mostrarSucesso(nome, cupom) {
+      document.getElementById('form-state').style.display = 'none';
+
+      const primeiroNome = nome.split(' ')[0];
+      document.getElementById('success-title').textContent = `${primeiroNome}, você está dentro.`;
+      document.getElementById('cupom-code').textContent = cupom;
+
+      const s = document.getElementById('success-state');
+      s.classList.add('visible');
+      s.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ─── COPIAR CUPOM ─────────────────────────────────────────── */
+    function copiarCupom() {
+      const code = document.getElementById('cupom-code').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.getElementById('btn-copy');
+        btn.textContent = 'Copiado ✓';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copiar código';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    /* ─── REMOVER ERRO AO DIGITAR ──────────────────────────────── */
+    document.getElementById('nome').addEventListener('input', function() {
+      this.classList.remove('error');
+      document.getElementById('nome-error').classList.remove('visible');
+    });
+    document.getElementById('telefone').addEventListener('input', function() {
+      this.classList.remove('error');
+      document.getElementById('tel-error').classList.remove('visible');
+    });
+  </script>
+
+</body>
+</html>

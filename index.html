@@ -3,11 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>After Porto — Acesso Antecipado</title>
+  <title>After Porto · 04.07 · Horto Lounge — Garanta seu ingresso</title>
+
+  <meta name="description" content="Porto Seguro acabou. O sentimento, não. 04.07 · Horto Lounge · Pedro Chamusca · Lote 1 R$77" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="After Porto · 04.07 · Horto Lounge — Garanta seu ingresso" />
+  <meta property="og:description" content="Porto Seguro acabou. O sentimento, não. 04.07 · Horto Lounge · Pedro Chamusca · Lote 1 R$77" />
+  <meta property="og:url" content="https://after-porto-pre-estreia.vercel.app/" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#0D1B2A" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
   <style>
     /* ─── TOKENS ─────────────────────────────────────────────── */
@@ -46,7 +55,7 @@
 
     /* ─── RESET ──────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; }
 
     body {
       background-color: var(--navy-2);
@@ -77,7 +86,6 @@
           transparent 60%);
     }
 
-    /* grain overlay */
     .bg-glow::after {
       content: '';
       position: absolute;
@@ -96,7 +104,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 32px;
+      gap: 40px;
     }
 
     /* ─── BADGE ──────────────────────────────────────────────── */
@@ -120,45 +128,166 @@
       text-align: center;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      align-items: center;
+      gap: 18px;
+      width: 100%;
     }
 
     .hero-title {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(32px, 8vw, 48px);
+      font-size: clamp(34px, 9vw, 50px);
       font-weight: 800;
-      line-height: 1.05;
+      line-height: 1.08;
       letter-spacing: -0.02em;
       color: var(--text);
     }
 
-    .hero-title span {
+    .hero-title em {
+      font-style: normal;
       background: linear-gradient(135deg, var(--gold) 20%, #f5d08a 60%, var(--gold) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
 
-    .hero-roma {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(17px, 4.5vw, 22px);
-      font-weight: 700;
+    .hero-sub {
+      font-size: 16px;
       color: var(--text-muted);
-      line-height: 1.35;
-      letter-spacing: -0.01em;
-      max-width: 320px;
-      margin: 0 auto;
+      line-height: 1.55;
+      max-width: 330px;
     }
 
-    .hero-sub {
+    .hero-data {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .hero-data strong { color: var(--gold); font-weight: 700; }
+
+    /* ─── CTA BUTTON (link) ──────────────────────────────────── */
+    .btn-cta {
+      width: 100%;
+      padding: 17px 24px;
+      border-radius: var(--r-pill);
+      background: linear-gradient(135deg, var(--gold) 0%, #f0c87a 50%, var(--gold) 100%);
+      background-size: 200% 200%;
+      color: #0D1B2A;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      box-shadow: var(--shadow-btn);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background-position 0.4s ease;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .btn-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(232,184,109,0.45), 0 1px 0 rgba(255,255,255,0.2) inset;
+      background-position: right center;
+    }
+
+    .btn-cta:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-btn);
+    }
+
+    /* ─── COUNTDOWN ──────────────────────────────────────────── */
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .count-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      min-width: 62px;
+      padding: 10px 6px;
+      background: var(--navy-card);
+      backdrop-filter: var(--blur-glass);
+      -webkit-backdrop-filter: var(--blur-glass);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+    }
+
+    .count-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .count-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-micro {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .hero-micro strong { color: var(--coral); font-weight: 600; }
+
+    /* ─── EMOTIONAL CARD ─────────────────────────────────────── */
+    .emo-card {
+      width: 100%;
+      background: linear-gradient(160deg, rgba(31,207,180,0.05) 0%, rgba(13,27,42,0.8) 40%, rgba(232,184,109,0.05) 100%);
+      backdrop-filter: var(--blur-glass);
+      -webkit-backdrop-filter: var(--blur-glass);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 30px 26px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .emo-card .emo-lead {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .emo-card p {
       font-size: 15px;
       color: var(--text-muted);
-      line-height: 1.6;
-      max-width: 340px;
-      margin: 0 auto;
+      line-height: 1.65;
     }
 
-    /* ─── CARD FORM ──────────────────────────────────────────── */
+    .emo-card p strong { color: var(--text); }
+
+    .emo-card .emo-final {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ─── INFO CARD ──────────────────────────────────────────── */
     .card {
       width: 100%;
       background: var(--navy-card);
@@ -173,7 +302,102 @@
       gap: 20px;
     }
 
-    /* ─── FORM FIELDS ────────────────────────────────────────── */
+    .info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .info-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .info-list li + li {
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .info-icon { font-size: 17px; flex-shrink: 0; width: 24px; text-align: center; }
+
+    .info-list li strong { color: var(--gold); font-weight: 700; }
+
+    /* ─── PROGRESS BAR ───────────────────────────────────────── */
+    .progress-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .progress-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+    }
+
+    .progress-head .progress-count { color: var(--gold); font-weight: 700; }
+    .progress-head .progress-pct { color: var(--text-muted); font-size: 11px; }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: var(--r-pill);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: var(--r-pill);
+      background: linear-gradient(90deg, var(--teal) 0%, var(--gold) 100%);
+      box-shadow: 0 0 12px rgba(232,184,109,0.4);
+      transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .progress-micro {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .progress-micro strong { color: var(--coral); font-weight: 600; }
+
+    /* ─── FORM (secondary) ───────────────────────────────────── */
+    .form-card {
+      width: 100%;
+      background: rgba(13,27,42,0.5);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .form-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-top: 4px;
+    }
+
     .field {
       display: flex;
       flex-direction: column;
@@ -181,7 +405,7 @@
     }
 
     label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       color: var(--text-muted);
       letter-spacing: 0.04em;
@@ -193,7 +417,7 @@
       background: rgba(255,255,255,0.04);
       border: 1px solid var(--border);
       border-radius: var(--r-sm);
-      padding: 13px 16px;
+      padding: 12px 14px;
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
       font-size: 15px;
@@ -229,97 +453,72 @@
 
     .field-error.visible { display: block; }
 
-    /* ─── CTA BUTTON ─────────────────────────────────────────── */
-    .btn-cta {
+    .btn-outline {
       width: 100%;
-      padding: 15px 24px;
+      padding: 12px 20px;
       border-radius: var(--r-pill);
-      background: linear-gradient(135deg, var(--gold) 0%, #f0c87a 50%, var(--gold) 100%);
-      background-size: 200% 200%;
-      color: #0D1B2A;
+      background: transparent;
+      border: 1px solid rgba(232,184,109,0.35);
+      color: var(--gold);
       font-family: 'DM Sans', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      border: none;
+      font-size: 14px;
+      font-weight: 600;
       cursor: pointer;
-      box-shadow: var(--shadow-btn);
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background-position 0.4s ease;
-      letter-spacing: -0.01em;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      position: relative;
-      overflow: hidden;
+      letter-spacing: -0.01em;
     }
 
-    .btn-cta:hover:not(:disabled) {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(232,184,109,0.45), 0 1px 0 rgba(255,255,255,0.2) inset;
-      background-position: right center;
+    .btn-outline:hover:not(:disabled) {
+      background: var(--gold-dim);
+      border-color: rgba(232,184,109,0.55);
     }
 
-    .btn-cta:active:not(:disabled) {
-      transform: translateY(0);
-      box-shadow: var(--shadow-btn);
-    }
+    .btn-outline:active:not(:disabled) { transform: translateY(1px); }
 
-    .btn-cta:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
+    .btn-outline:disabled { opacity: 0.6; cursor: not-allowed; }
 
-    .btn-cta .spinner {
-      width: 16px;
-      height: 16px;
-      border: 2px solid rgba(13,27,42,0.3);
-      border-top-color: #0D1B2A;
+    .btn-outline .spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(232,184,109,0.3);
+      border-top-color: var(--gold);
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
       display: none;
     }
 
-    .btn-cta.loading .spinner { display: block; }
-    .btn-cta.loading .btn-text { opacity: 0.7; }
+    .btn-outline.loading .spinner { display: block; }
+    .btn-outline.loading .btn-text { opacity: 0.7; }
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ─── SOCIAL PROOF ───────────────────────────────────────── */
-    .social-proof {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    /* ─── FORM SUCCESS (discreet) ────────────────────────────── */
+    .form-success {
+      display: none;
+      align-items: flex-start;
       gap: 10px;
+      background: var(--teal-dim);
+      border: 1px solid rgba(31,207,180,0.25);
+      border-radius: var(--r-sm);
+      padding: 14px 16px;
+      animation: fadeUp 0.4s ease forwards;
     }
 
-    .avatars {
-      display: flex;
+    .form-success.visible { display: flex; }
+
+    .form-success p {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.55;
     }
 
-    .avatar {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 2px solid var(--navy-2);
-      background: linear-gradient(135deg, var(--teal-dim), var(--gold-dim));
-      margin-left: -8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-    }
-
-    .avatar:first-child { margin-left: 0; }
-
-    .social-text {
-      font-size: 13px;
-      color: var(--text-muted);
-      text-align: center;
-    }
-
-    .social-text strong {
-      color: var(--teal);
-      font-weight: 600;
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     /* ─── DIVIDER ────────────────────────────────────────────── */
@@ -329,139 +528,38 @@
       background: linear-gradient(90deg, transparent, var(--border-hover), transparent);
     }
 
-    /* ─── SUCCESS STATE ──────────────────────────────────────── */
-    .success-state {
+    /* ─── STICKY CTA (mobile) ────────────────────────────────── */
+    .sticky-cta {
       display: none;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 24px;
-      animation: fadeUp 0.5s ease forwards;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+      background: linear-gradient(0deg, rgba(10,21,32,0.97) 60%, rgba(10,21,32,0));
+      transform: translateY(110%);
+      transition: transform 0.3s ease;
     }
 
-    .success-state.visible { display: flex; }
+    .sticky-cta.show { transform: translateY(0); }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .success-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: var(--teal-dim);
-      border: 1px solid rgba(31,207,180,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      box-shadow: 0 0 32px rgba(31,207,180,0.2);
-    }
-
-    .success-title {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-    }
-
-    .success-sub {
+    .sticky-cta .btn-cta {
+      padding: 15px 20px;
       font-size: 15px;
-      color: var(--text-muted);
-      line-height: 1.6;
-      max-width: 320px;
+      box-shadow: 0 4px 24px rgba(232,184,109,0.4), 0 1px 0 rgba(255,255,255,0.15) inset;
     }
 
-    /* ─── CUPOM ──────────────────────────────────────────────── */
-    .cupom-box {
-      width: 100%;
-      background: var(--navy-card);
-      backdrop-filter: var(--blur-glass);
-      -webkit-backdrop-filter: var(--blur-glass);
-      border: 1px solid rgba(232,184,109,0.25);
-      border-radius: var(--r-md);
-      padding: 20px 24px;
-      box-shadow: var(--shadow-card), 0 0 40px rgba(232,184,109,0.08);
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    @media (max-width: 640px) {
+      .sticky-cta { display: block; }
     }
-
-    .cupom-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 10px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .cupom-code {
-      font-family: 'Space Mono', monospace;
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--gold);
-      letter-spacing: 0.12em;
-    }
-
-    .cupom-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .cupom-desc strong { color: var(--text); }
-
-    .btn-copy {
-      align-self: flex-start;
-      padding: 7px 14px;
-      border-radius: var(--r-pill);
-      background: var(--gold-dim);
-      border: 1px solid rgba(232,184,109,0.2);
-      color: var(--gold);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s, border-color 0.15s;
-      letter-spacing: 0.01em;
-    }
-
-    .btn-copy:hover {
-      background: rgba(232,184,109,0.18);
-      border-color: rgba(232,184,109,0.35);
-    }
-
-    .btn-copy.copied { color: var(--teal); background: var(--teal-dim); border-color: rgba(31,207,180,0.25); }
-
-    /* ─── DISCLAIMER ─────────────────────────────────────────── */
-    .disclaimer {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      background: var(--gold-dim);
-      border: 1px solid rgba(232,184,109,0.15);
-      border-radius: var(--r-sm);
-      padding: 12px 14px;
-    }
-
-    .disclaimer-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
-
-    .disclaimer-text {
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    .disclaimer-text strong { color: var(--gold); }
 
     /* ─── FOOTER ─────────────────────────────────────────────── */
     footer {
       position: relative;
       z-index: 1;
       text-align: center;
-      padding: 0 20px 40px;
+      padding: 0 20px 110px;
       font-family: 'Space Mono', monospace;
       font-size: 10px;
       color: rgba(138,155,176,0.4);
@@ -469,10 +567,17 @@
       text-transform: uppercase;
     }
 
+    @media (min-width: 641px) {
+      footer { padding-bottom: 40px; }
+    }
+
     /* ─── RESPONSIVE ─────────────────────────────────────────── */
     @media (max-width: 380px) {
-      main { padding: 36px 16px 48px; gap: 24px; }
+      main { padding: 36px 16px 48px; gap: 32px; }
       .card { padding: 22px 18px; }
+      .emo-card { padding: 24px 20px; }
+      .count-unit { min-width: 56px; padding: 8px 4px; }
+      .count-num { font-size: 19px; }
     }
   </style>
 </head>
@@ -483,113 +588,195 @@
 
   <main>
 
-    <!-- HERO -->
+    <!-- ─── HERO ─────────────────────────────────────────────── -->
     <section class="hero">
-      <h1 class="hero-title"><span>AFTER PORTO</span></h1>
-      <p class="hero-roma">5 dias em Porto em 1 noite que não deixa esse sentimento acabar.</p>
-      <p class="hero-sub">
-        Inscreva-se agora e garanta <strong style="color:var(--text)">acesso antecipado</strong> + um cupom de desconto exclusivo quando as vendas abrirem.
-      </p>
+      <span class="badge">🌴 04.07 · Horto Lounge · Salvador</span>
+
+      <h1 class="hero-title">Porto Seguro acabou.<br /><em>O sentimento, não.</em></h1>
+
+      <p class="hero-sub">Uma última noite com quem foi — antes de tudo voltar ao normal.</p>
+
+      <p class="hero-data">DJ Pedro Chamusca · 450 vagas · <strong>Lote 1: R$77</strong></p>
+
+      <a class="btn-cta" id="cta-primary" href="https://musaticket.com.br/after-porto?utm_source=lp&utm_medium=cta_hero" target="_blank" rel="noopener">
+        Garantir meu ingresso — Lote 1 · R$77 →
+      </a>
+
+      <div class="countdown" id="countdown" aria-label="Contagem regressiva para o evento">
+        <div class="count-unit">
+          <span class="count-num" id="cd-days">--</span>
+          <span class="count-label">dias</span>
+        </div>
+        <div class="count-unit">
+          <span class="count-num" id="cd-hours">--</span>
+          <span class="count-label">horas</span>
+        </div>
+        <div class="count-unit">
+          <span class="count-num" id="cd-min">--</span>
+          <span class="count-label">min</span>
+        </div>
+        <div class="count-unit">
+          <span class="count-num" id="cd-seg">--</span>
+          <span class="count-label">seg</span>
+        </div>
+      </div>
+
+      <p class="hero-micro"><strong>450 ingressos no total.</strong> Quando acabar, acabou.</p>
     </section>
 
-    <!-- FORM STATE -->
-    <div id="form-state" style="width:100%; display:flex; flex-direction:column; gap:20px;">
+    <!-- ─── EMOTIONAL ────────────────────────────────────────── -->
+    <section class="emo-card">
+      <p class="emo-lead">Você lembra do último dia em Porto.</p>
+      <p>Aquela sensação de "não quero que isso acabe" enquanto todo mundo arrumava a mala. A volta pra Salvador. A rotina chegando.</p>
+      <p>O After Porto existe por um motivo: <strong>os 5 melhores dias do ano merecem um último capítulo.</strong> Dia 04 de julho, todo mundo que viveu Porto — e quem ficou devendo essa história — se encontra de novo.</p>
+      <p class="emo-final">Uma noite. Sem replay.</p>
+    </section>
 
-      <div class="card">
-        <form id="signup-form" novalidate>
+    <!-- ─── INFO CARD ────────────────────────────────────────── -->
+    <section class="card">
+      <ul class="info-list">
+        <li><span class="info-icon">📅</span> 04 de julho de 2026</li>
+        <li><span class="info-icon">🕙</span> A partir das 22h</li>
+        <li><span class="info-icon">📍</span> Horto Lounge — Salvador, BA</li>
+        <li><span class="info-icon">🎧</span> DJ Pedro Chamusca</li>
+        <li><span class="info-icon">🎫</span> <span>Lote 1: <strong>R$77</strong></span></li>
+      </ul>
+    </section>
 
-          <div style="display:flex; flex-direction:column; gap:16px;">
-
-            <div class="field">
-              <label for="nome">Seu nome</label>
-              <input
-                type="text"
-                id="nome"
-                name="nome"
-                placeholder="Como você quer ser chamado?"
-                autocomplete="given-name"
-                inputmode="text"
-              />
-              <span class="field-error" id="nome-error">Coloca seu nome aqui.</span>
-            </div>
-
-            <div class="field">
-              <label for="telefone">WhatsApp</label>
-              <input
-                type="tel"
-                id="telefone"
-                name="telefone"
-                placeholder="(71) 9 0000-0000"
-                autocomplete="tel"
-                inputmode="tel"
-              />
-              <span class="field-error" id="tel-error">Número inválido. Coloca o DDD + número.</span>
-            </div>
-
-          </div>
-
-          <div style="margin-top:20px;">
-            <button type="submit" class="btn-cta" id="btn-submit">
-              <div class="spinner"></div>
-              <span class="btn-text">Quero meu acesso antecipado →</span>
-            </button>
-          </div>
-
-        </form>
+    <!-- ─── PROGRESS BAR ─────────────────────────────────────── -->
+    <section class="progress-section" id="progress-section">
+      <div class="progress-head">
+        <span class="progress-count">187 / 450 ingressos garantidos</span>
+        <span class="progress-pct">42%</span>
       </div>
-
-      <!-- SOCIAL PROOF -->
-      <div class="social-proof">
-        <div class="avatars"></div>
-        <p class="social-text">
-          Uma noite. Sem replay.<br />
-          <strong>450 vagas</strong>
-        </p>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" data-pct="41.6"></div>
       </div>
+      <p class="progress-micro"><strong>263 vagas restantes.</strong> O link fecha quando bater 450.</p>
+    </section>
 
-    </div>
+    <!-- ─── CTA REPEATED ─────────────────────────────────────── -->
+    <a class="btn-cta" href="https://musaticket.com.br/after-porto?utm_source=lp&utm_medium=cta_meio" target="_blank" rel="noopener">
+      Garantir meu ingresso — Lote 1 · R$77 →
+    </a>
 
-    <!-- SUCCESS STATE -->
-    <div class="success-state" id="success-state">
+    <div class="divider" aria-hidden="true"></div>
 
-      <div class="success-icon">🌴</div>
-
+    <!-- ─── SECONDARY FORM (remarketing) ─────────────────────── -->
+    <section class="form-card" id="form-card">
       <div>
-        <h2 class="success-title" id="success-title">Você está dentro.</h2>
-        <p class="success-sub" style="margin-top:10px;">
-          Vamos te avisar no WhatsApp quando as vendas abrirem. Guarda esse cupom — ele é seu.
-        </p>
+        <h2 class="form-title">Não pode garantir agora?</h2>
+        <p class="form-sub">Deixa seu WhatsApp — a gente avisa quando as últimas vagas estiverem acabando.</p>
       </div>
 
-      <div class="cupom-box">
-        <span class="cupom-label">Seu cupom exclusivo</span>
-        <span class="cupom-code" id="cupom-code">—</span>
-        <p class="cupom-desc">
-          Desconto garantido no <strong>Lote 1</strong> do After Porto.<br />
-          Apresenta no momento da compra.
-        </p>
-        <button class="btn-copy" id="btn-copy" onclick="copiarCupom()">
-          Copiar código
-        </button>
-      </div>
+      <form id="signup-form" novalidate>
+        <div style="display:flex; flex-direction:column; gap:14px;">
 
-      <div class="disclaimer">
-        <span class="disclaimer-icon">💬</span>
-        <p class="disclaimer-text">
-          Você receberá um <strong>aviso no WhatsApp</strong> assim que os ingressos abrirem. Fique de olho.
-        </p>
-      </div>
+          <div class="field">
+            <label for="nome">Seu nome</label>
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              placeholder="Como você quer ser chamado?"
+              autocomplete="given-name"
+              inputmode="text"
+            />
+            <span class="field-error" id="nome-error">Coloca seu nome aqui.</span>
+          </div>
 
-    </div>
+          <div class="field">
+            <label for="telefone">WhatsApp</label>
+            <input
+              type="tel"
+              id="telefone"
+              name="telefone"
+              placeholder="(71) 9 0000-0000"
+              autocomplete="tel"
+              inputmode="tel"
+            />
+            <span class="field-error" id="tel-error">Número inválido. Coloca o DDD + número.</span>
+          </div>
+
+          <button type="submit" class="btn-outline" id="btn-submit">
+            <div class="spinner"></div>
+            <span class="btn-text">Me avisem →</span>
+          </button>
+
+        </div>
+      </form>
+
+      <div class="form-success" id="form-success">
+        <span aria-hidden="true">✓</span>
+        <p>Anotado! Você recebe um aviso no WhatsApp antes das vagas acabarem.</p>
+      </div>
+    </section>
 
   </main>
 
-  <footer>After Porto</footer>
+  <!-- ─── STICKY CTA (mobile only) ───────────────────────────── -->
+  <div class="sticky-cta" id="sticky-cta">
+    <a class="btn-cta" href="https://musaticket.com.br/after-porto?utm_source=lp&utm_medium=cta_sticky" target="_blank" rel="noopener">
+      Garantir ingresso · R$77 — 263 restantes →
+    </a>
+  </div>
+
+  <footer>After Porto · Horto Lounge · 04.07.2026</footer>
 
   <script>
     /* ─── CONFIG SUPABASE ──────────────────────────────────────── */
     const SUPA_URL = 'https://tvndpawdvcnvgyctvsgz.supabase.co';
     const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR2bmRwYXdkdmNudmd5Y3R2c2d6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAwNzAzOTksImV4cCI6MjA5NTY0NjM5OX0.lyZHamZxp3o0DRq8U8EBXRS-_3dqKNjv4_niiiV0h1M';
+
+    /* ─── COUNTDOWN ────────────────────────────────────────────── */
+    const eventDate = new Date('2026-07-04T22:00:00-03:00');
+    const cdDays  = document.getElementById('cd-days');
+    const cdHours = document.getElementById('cd-hours');
+    const cdMin   = document.getElementById('cd-min');
+    const cdSeg   = document.getElementById('cd-seg');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function atualizarCountdown() {
+      const diff = eventDate.getTime() - Date.now();
+      if (diff <= 0) {
+        cdDays.textContent = '00';
+        cdHours.textContent = '00';
+        cdMin.textContent = '00';
+        cdSeg.textContent = '00';
+        return;
+      }
+      const s = Math.floor(diff / 1000);
+      cdDays.textContent  = pad(Math.floor(s / 86400));
+      cdHours.textContent = pad(Math.floor((s % 86400) / 3600));
+      cdMin.textContent   = pad(Math.floor((s % 3600) / 60));
+      cdSeg.textContent   = pad(s % 60);
+    }
+
+    atualizarCountdown();
+    setInterval(atualizarCountdown, 1000);
+
+    /* ─── PROGRESS BAR (anima ao entrar no viewport) ───────────── */
+    const progressFill = document.getElementById('progress-fill');
+    const progressObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          progressFill.style.width = progressFill.dataset.pct + '%';
+          progressObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    progressObserver.observe(document.getElementById('progress-section'));
+
+    /* ─── STICKY CTA (some quando o CTA primário está visível) ── */
+    const stickyCta = document.getElementById('sticky-cta');
+    const ctaPrimary = document.getElementById('cta-primary');
+    const ctaObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        stickyCta.classList.toggle('show', !entry.isIntersecting);
+      });
+    }, { threshold: 0.1 });
+    ctaObserver.observe(ctaPrimary);
 
     /* ─── GERADOR DE CUPOM ─────────────────────────────────────── */
     function gerarCupom() {
@@ -674,7 +861,12 @@
 
         if (!res.ok) throw new Error('Erro ao salvar');
 
-        mostrarSucesso(nome, cupom);
+        document.getElementById('signup-form').style.display = 'none';
+        const successBox = document.getElementById('form-success');
+        successBox.querySelector('p').innerHTML =
+          'Anotado, ' + nome.split(' ')[0] + '! Você recebe um aviso no WhatsApp antes das vagas acabarem. ' +
+          'Mas não espera demais: <a href="https://musaticket.com.br/after-porto?utm_source=lp&utm_medium=form_success" target="_blank" rel="noopener" style="color:var(--gold);font-weight:600;">garanta agora por R$77 →</a>';
+        successBox.classList.add('visible');
 
       } catch (err) {
         btn.disabled = false;
@@ -682,33 +874,6 @@
         alert('Algo deu errado. Tenta de novo em instantes.');
       }
     });
-
-    /* ─── MOSTRAR SUCESSO ──────────────────────────────────────── */
-    function mostrarSucesso(nome, cupom) {
-      document.getElementById('form-state').style.display = 'none';
-
-      const primeiroNome = nome.split(' ')[0];
-      document.getElementById('success-title').textContent = `${primeiroNome}, você está dentro.`;
-      document.getElementById('cupom-code').textContent = cupom;
-
-      const s = document.getElementById('success-state');
-      s.classList.add('visible');
-      s.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    /* ─── COPIAR CUPOM ─────────────────────────────────────────── */
-    function copiarCupom() {
-      const code = document.getElementById('cupom-code').textContent;
-      navigator.clipboard.writeText(code).then(() => {
-        const btn = document.getElementById('btn-copy');
-        btn.textContent = 'Copiado ✓';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.textContent = 'Copiar código';
-          btn.classList.remove('copied');
-        }, 2000);
-      });
-    }
 
     /* ─── REMOVER ERRO AO DIGITAR ──────────────────────────────── */
     document.getElementById('nome').addEventListener('input', function() {

@@ -162,9 +162,13 @@
       font-size: 12px;
       color: var(--text-muted);
       letter-spacing: 0.02em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px 8px;
     }
 
-    .hero-data strong { color: var(--gold); font-weight: 700; }
+    .hero-data strong { color: var(--gold); font-weight: 700; white-space: nowrap; }
 
     /* ─── CTA BUTTON (link) ──────────────────────────────────── */
     .btn-cta {
@@ -596,7 +600,7 @@
 
       <p class="hero-sub">Garante já o capítulo final — antes mesmo de embarcar.</p>
 
-      <p class="hero-data">Atração revelada em breve · 450 vagas · <strong>Pré-venda: R$44</strong></p>
+      <p class="hero-data"><span>Atração revelada em breve</span><span>·</span><span>450 vagas</span><span>·</span><strong>Pré-venda: R$44</strong></p>
 
       <a class="btn-cta" id="cta-primary" href="https://musaticket.com.br/evento/after-porto/553?utm_source=lp&utm_medium=cta_hero" target="_blank" rel="noopener">
         Garantir meu ingresso — Pré-venda · R$44 →

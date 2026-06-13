@@ -369,6 +369,58 @@
     .form-success p{font-size:14px;color:var(--text);line-height:1.6}
     @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 
+    /* ─── WHATSAPP CARD ─────────────────────────────────────── */
+    .wa-card{
+      width:100%;
+      background:linear-gradient(137deg,rgba(10,28,18,.92) 0%,rgba(7,11,20,.96) 100%);
+      backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);
+      border:1px solid rgba(37,211,102,.18);border-radius:var(--r-xl);
+      padding:32px 36px;box-shadow:var(--shadow-card),0 0 40px rgba(37,211,102,.06);
+      display:flex;flex-direction:column;align-items:center;gap:20px;
+      position:relative;overflow:hidden;
+      transition:border-color .3s var(--ease-soft);
+    }
+    .wa-card::before{
+      content:'';position:absolute;top:0;left:8%;right:8%;height:1px;
+      background:linear-gradient(90deg,transparent,rgba(37,211,102,.35) 50%,transparent);
+    }
+    .wa-card:hover{border-color:rgba(37,211,102,.32)}
+    .wa-icon{
+      width:52px;height:52px;border-radius:50%;
+      background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.22);
+      display:flex;align-items:center;justify-content:center;
+      animation:waPulse 3s ease-in-out infinite;
+    }
+    @keyframes waPulse{
+      0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.28)}
+      50%    {box-shadow:0 0 0 12px rgba(37,211,102,0)}
+    }
+    .wa-icon svg{width:26px;height:26px}
+    .wa-text{text-align:center}
+    .wa-title{font-size:16px;font-weight:700;color:var(--text);letter-spacing:-.01em;margin-bottom:6px}
+    .wa-sub{font-size:13px;color:var(--text-muted);line-height:1.6}
+    .btn-wa{
+      width:100%;min-height:52px;padding:15px 24px;border-radius:var(--r-pill);
+      background:linear-gradient(135deg,#25D366 0%,#20bd5a 100%);
+      color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;
+      border:none;cursor:pointer;text-decoration:none;
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      box-shadow:0 0 0 1px rgba(37,211,102,.3),0 4px 16px rgba(37,211,102,.28),0 12px 32px rgba(37,211,102,.14),inset 0 1px 0 rgba(255,255,255,.2);
+      transition:transform .45s var(--ease-spring),box-shadow .3s var(--ease-soft);
+      position:relative;overflow:hidden;letter-spacing:-.01em;
+    }
+    .btn-wa::after{
+      content:'';position:absolute;top:0;left:-100%;width:55%;height:100%;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);
+      transform:skewX(-20deg);transition:left .7s var(--ease-soft);
+    }
+    .btn-wa:hover::after{left:150%}
+    .btn-wa:hover{
+      transform:translateY(-2px) scale(1.012);
+      box-shadow:0 0 0 1px rgba(37,211,102,.4),0 6px 20px rgba(37,211,102,.44),0 20px 48px rgba(37,211,102,.22),inset 0 1px 0 rgba(255,255,255,.25);
+    }
+    .btn-wa:active{transform:scale(.975);transition-duration:.1s}
+
     /* ─── STICKY CTA ─────────────────────────────────────────── */
     .sticky-cta{
       display:none;position:fixed;bottom:0;left:0;right:0;z-index:100;
@@ -494,6 +546,26 @@
       </a>
     </div>
 
+    <!-- ─── WHATSAPP GROUP ──────────────────────────────────────── -->
+    <section class="wa-card reveal" id="wa-card">
+      <div class="wa-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="#25D366" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.526 5.859L0 24l6.335-1.502A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.803 9.803 0 0 1-5.064-1.407l-.363-.217-3.762.892.952-3.656-.237-.374A9.794 9.794 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+        </svg>
+      </div>
+      <div class="wa-text">
+        <p class="wa-title">Grupo do After Porto no WhatsApp</p>
+        <p class="wa-sub">Novidades, atração revelada em primeira mão e avisos de última hora. Entra no grupo.</p>
+      </div>
+      <a class="btn-wa"
+         href="https://chat.whatsapp.com/HAkrwUmmWj9BTh9fmjZKLV"
+         target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.526 5.859L0 24l6.335-1.502A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.803 9.803 0 0 1-5.064-1.407l-.363-.217-3.762.892.952-3.656-.237-.374A9.794 9.794 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+        Entrar no grupo
+      </a>
+    </section>
+
     <!-- ─── FORM ────────────────────────────────────────────────── -->
     <section class="form-card reveal" id="form-card">
       <div>
@@ -531,6 +603,35 @@
     </section>
 
   </main>
+
+  <!-- ─── WHATSAPP FLOAT ─────────────────────────────────────── -->
+  <a id="wa-fab"
+     href="https://chat.whatsapp.com/HAkrwUmmWj9BTh9fmjZKLV"
+     target="_blank" rel="noopener"
+     aria-label="Entrar no grupo do WhatsApp"
+     style="
+       position:fixed;bottom:calc(80px + env(safe-area-inset-bottom,0px));right:20px;
+       z-index:200;width:54px;height:54px;border-radius:50%;
+       background:linear-gradient(135deg,#25D366,#1da851);
+       display:flex;align-items:center;justify-content:center;
+       box-shadow:0 4px 16px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,.4);
+       animation:fabPulse 2.5s ease-in-out infinite;
+       transition:transform .35s var(--ease-spring),box-shadow .3s;
+       text-decoration:none;
+     "
+     onmouseenter="this.style.transform='scale(1.12)'"
+     onmouseleave="this.style.transform='scale(1)'">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.526 5.859L0 24l6.335-1.502A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.803 9.803 0 0 1-5.064-1.407l-.363-.217-3.762.892.952-3.656-.237-.374A9.794 9.794 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/>
+    </svg>
+  </a>
+  <style>
+    @keyframes fabPulse{
+      0%,100%{box-shadow:0 4px 16px rgba(37,211,102,.45),0 0 0 0 rgba(37,211,102,.4)}
+      60%    {box-shadow:0 4px 16px rgba(37,211,102,.45),0 0 0 14px rgba(37,211,102,0)}
+    }
+  </style>
 
   <!-- ─── STICKY CTA ──────────────────────────────────────────── -->
   <div class="sticky-cta" id="sticky-cta">
@@ -841,7 +942,7 @@ document.getElementById('signup-form').addEventListener('submit',async e=>{
     if(!res.ok)throw new Error();
     document.getElementById('signup-form').style.display='none';
     const box=document.getElementById('form-success');
-    box.querySelector('p').innerHTML='Anotado, '+nome.split(' ')[0]+'! Você recebe um aviso no WhatsApp antes das vagas acabarem. Mas não espera demais: <a href="https://musaticket.com.br/evento/after-porto/553?utm_source=lp&utm_medium=form_success" target="_blank" rel="noopener" style="color:var(--gold);font-weight:600;">garanta agora por R$44 →</a>';
+    box.querySelector('p').innerHTML='Anotado, '+nome.split(' ')[0]+'! Você recebe um aviso antes das vagas acabarem. Enquanto isso, <a href="https://chat.whatsapp.com/HAkrwUmmWj9BTh9fmjZKLV" target="_blank" rel="noopener" style="color:#25D366;font-weight:600;">entra no grupo do WhatsApp →</a>';
     box.classList.add('show');
   }catch{
     btn.disabled=false;btn.classList.remove('loading');

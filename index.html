@@ -203,6 +203,9 @@
       background-position:right center;
     }
     .btn-cta:active{transform:translateY(0) scale(.975);transition-duration:.1s}
+    .price-anchor s{opacity:.5;font-weight:400;text-decoration:line-through}
+    .price-anchor .price-exclusive{color:#f0c060;font-weight:700}
+    .price-badge{display:inline-block;margin-left:6px;font-size:.75em;background:rgba(240,192,96,.15);border:1px solid rgba(240,192,96,.4);color:#f0c060;padding:2px 8px;border-radius:20px;vertical-align:middle;letter-spacing:.03em}
 
     /* ─── COUNTDOWN ──────────────────────────────────────────── */
     .countdown{display:flex;justify-content:center;gap:12px;width:100%}
@@ -486,7 +489,7 @@
         <span class="sep">·</span>
         <span>450 vagas</span>
         <span class="sep">·</span>
-        <strong>1º Lote: R$53 + taxa</strong>
+        <strong id="hero-price">1º Lote: R$53 + taxa</strong>
       </p>
 
       <div class="cta-wrap">
@@ -534,7 +537,7 @@
         <li class="reveal"><span class="info-icon">🕙</span> A partir das 22h</li>
         <li class="reveal"><span class="info-icon">📍</span> Horto Lounge — Salvador, BA</li>
         <li class="reveal"><span class="info-icon">🎧</span> Atração — revelada em breve 👀</li>
-        <li class="reveal"><span class="info-icon">🎫</span><span>1º Lote: <strong>R$53 + R$5,30 de taxa</strong></span></li>
+        <li class="reveal"><span class="info-icon">🎫</span><span id="info-price">1º Lote: <strong>R$53 + R$5,30 de taxa</strong></span></li>
       </ul>
     </section>
 
@@ -969,9 +972,28 @@ document.getElementById('signup-form').addEventListener('submit',async e=>{
   };
   const base = bases[src];
   if(!base) return;
+
   document.querySelectorAll('[data-cta-medium]').forEach(function(a){
     a.href = base + '?utm_source=lp&utm_medium=' + a.dataset.ctaMedium;
   });
+
+  if(src === 'whatsapp'){
+    const heroPrice = document.getElementById('hero-price');
+    if(heroPrice){
+      heroPrice.classList.add('price-anchor');
+      heroPrice.innerHTML = '1º Lote: <s>R$53 + R$5,30</s> <span class="price-exclusive">R$47,17 + R$5,30</span><span class="price-badge">exclusivo grupo 🤫</span>';
+    }
+
+    const infoPrice = document.getElementById('info-price');
+    if(infoPrice){
+      infoPrice.classList.add('price-anchor');
+      infoPrice.innerHTML = '1º Lote: <s>R$53 + R$5,30 de taxa</s><br><strong class="price-exclusive">R$47,17 + R$5,30 de taxa</strong> <span class="price-badge">exclusivo grupo 🤫</span>';
+    }
+
+    document.querySelectorAll('[data-cta-medium]').forEach(function(a){
+      a.textContent = a.textContent.replace(/R\$53.*?taxa/, 'R$47,17 + taxa');
+    });
+  }
 })();
 </script>
 </body>

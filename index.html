@@ -977,23 +977,28 @@ document.getElementById('signup-form').addEventListener('submit',async e=>{
     a.href = base + '?utm_source=lp&utm_medium=' + a.dataset.ctaMedium;
   });
 
-  if(src === 'whatsapp'){
-    const heroPrice = document.getElementById('hero-price');
-    if(heroPrice){
-      heroPrice.classList.add('price-anchor');
-      heroPrice.innerHTML = '1º Lote: <s>R$53 + R$5,30</s> <span class="price-exclusive">R$47,17 + R$5,30</span><span class="price-badge">exclusivo grupo 🤫</span>';
-    }
+  const offers = {
+    whatsapp: { price: 'R$47,17', badge: 'exclusivo grupo 🤫' },
+    instagram: { price: 'R$48,76', badge: 'exclusivo seguidores 📲' }
+  };
+  const offer = offers[src];
+  if(!offer) return;
 
-    const infoPrice = document.getElementById('info-price');
-    if(infoPrice){
-      infoPrice.classList.add('price-anchor');
-      infoPrice.innerHTML = '1º Lote: <s>R$53 + R$5,30 de taxa</s><br><strong class="price-exclusive">R$47,17 + R$5,30 de taxa</strong> <span class="price-badge">exclusivo grupo 🤫</span>';
-    }
-
-    document.querySelectorAll('[data-cta-medium]').forEach(function(a){
-      a.textContent = a.textContent.replace(/R\$53.*?taxa/, 'R$47,17 + taxa');
-    });
+  const heroPrice = document.getElementById('hero-price');
+  if(heroPrice){
+    heroPrice.classList.add('price-anchor');
+    heroPrice.innerHTML = '1º Lote: <s>R$53 + R$5,30</s> <span class="price-exclusive">' + offer.price + ' + R$5,30</span><span class="price-badge">' + offer.badge + '</span>';
   }
+
+  const infoPrice = document.getElementById('info-price');
+  if(infoPrice){
+    infoPrice.classList.add('price-anchor');
+    infoPrice.innerHTML = '1º Lote: <s>R$53 + R$5,30 de taxa</s><br><strong class="price-exclusive">' + offer.price + ' + R$5,30 de taxa</strong> <span class="price-badge">' + offer.badge + '</span>';
+  }
+
+  document.querySelectorAll('[data-cta-medium]').forEach(function(a){
+    a.textContent = a.textContent.replace(/R\$53.*?taxa/, offer.price + ' + taxa');
+  });
 })();
 </script>
 </body>

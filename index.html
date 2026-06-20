@@ -997,7 +997,8 @@ document.getElementById('signup-form').addEventListener('submit',async e=>{
   const src = params.get('utm_source');
   const bases = {
     whatsapp: 'https://musaticket.com.br/evento/after-porto/553/GRUPO',
-    instagram: 'https://musaticket.com.br/evento/after-porto/553/AFTER'
+    instagram: 'https://musaticket.com.br/evento/after-porto/553/AFTER',
+    facebook: 'https://musaticket.com.br/evento/after-porto/553/NORT'
   };
   const base = bases[src];
   if(!base) return;
@@ -1016,7 +1017,8 @@ document.getElementById('signup-form').addEventListener('submit',async e=>{
 
   const offers = {
     whatsapp: { price: 'R$47,17', badge: 'exclusivo grupo 🟢' },
-    instagram: { price: 'R$48,76', badge: 'exclusivo seguidores 📲' }
+    instagram: { price: 'R$48,76', badge: 'exclusivo seguidores 📲' },
+    facebook: { price: 'R$49,82', badge: 'oferta exclusiva 🎯' }
   };
   const offer = offers[src];
   if(!offer) return;

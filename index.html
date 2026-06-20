@@ -461,6 +461,30 @@
       .hero-title .lt{opacity:1!important;transform:none!important}
     </style>
   </noscript>
+
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1534088541478972');
+  fbq('track', 'PageView');
+  fbq('track', 'ViewContent', {
+    content_name: 'After Porto — LP Ingresso',
+    content_category: 'Evento',
+    currency: 'BRL',
+    value: 53.00
+  });
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1534088541478972&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
 </head>
 <body>
 
@@ -950,6 +974,11 @@ document.getElementById('signup-form').addEventListener('submit',async e=>{
     const box=document.getElementById('form-success');
     box.querySelector('p').innerHTML='Anotado, '+nome.split(' ')[0]+'! Você recebe um aviso antes das vagas acabarem. Enquanto isso, <a href="https://chat.whatsapp.com/HAkrwUmmWj9BTh9fmjZKLV" target="_blank" rel="noopener" style="color:#25D366;font-weight:600;">entra no grupo do WhatsApp →</a>';
     box.classList.add('show');
+    if(typeof fbq !== 'undefined') fbq('track', 'Lead', {
+      content_name: 'After Porto — Aviso de Vagas',
+      currency: 'BRL',
+      value: 53.00
+    });
   }catch{
     btn.disabled=false;btn.classList.remove('loading');
     alert('Algo deu errado. Tenta de novo em instantes.');
@@ -975,6 +1004,14 @@ document.getElementById('signup-form').addEventListener('submit',async e=>{
 
   document.querySelectorAll('[data-cta-medium]').forEach(function(a){
     a.href = base + '?utm_source=lp&utm_medium=' + a.dataset.ctaMedium;
+    a.addEventListener('click', function(){
+      if(typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout', {
+        content_name: 'After Porto — Ingresso 1º Lote',
+        currency: 'BRL',
+        value: 53.00,
+        num_items: 1
+      });
+    });
   });
 
   const offers = {
